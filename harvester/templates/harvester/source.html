@@ -1,0 +1,39 @@
+{% extends 'harvester/index.html' %}
+{% block breadcrumbs %}
+    {{ block.super }}
+    <li><a href="{% url 'harvester:sources' %}">Источники</a></li>
+    <li class="active">{{ source.name }} ({{ source.code }})</li>
+{% endblock %}
+{% block content %}
+    <div class="well well-sm">
+        <a href="#" class="btn btn-success btn-sm">Добавить файл</a>
+        <a href="#" class="btn btn-default btn-sm">Редактировать</a>
+    </div>
+    <h3>Файлы</h3>
+    <table class="table">
+        <tr>
+            <th>URI</th>
+            <th>Формат</th>
+            <th>Схема</th>
+            <th>Кодировка</th>
+            <th>Размер (Мб)</th>
+            <th>Статус</th>
+            <th>Дата модификации</th>
+        </tr>
+        {% for source_records_file in source_records_files %}
+            <tr>
+                <td>
+                    <a href="{% url 'harvester:source_file' source.id source_records_file.id %}" title="source_records_file.file_uri">
+                        {{ source_records_file.file_uri|truncatechars:50 }}
+                    </a>
+                </td>
+                <td>{{ source_records_file.format }}</td>
+                <td>{{ source_records_file.schema }}</td>
+                <td>{{ source_records_file.encoding }}</td>
+                <td>{{ source_records_file.get_size }}</td>
+                <td>{{ source_records_file.status }}</td>
+                <td>{{ source_records_file.get_update_date }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

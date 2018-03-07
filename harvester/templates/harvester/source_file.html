@@ -1,0 +1,42 @@
+{% extends 'harvester/index.html' %}
+{% block breadcrumbs %}
+    {{ block.super }}
+    <li><a href="{% url 'harvester:sources' %}">Источники</a></li>
+    <li><a href="{% url 'harvester:source' source.id %}">{{ source.name }}</a></li>
+    <li class="active">{{ source_records_file.file_uri }}</li>
+{% endblock %}
+{% block content %}
+    <div class="well well-sm">
+        <a href="{% url 'harvester:source_file_testing' source.id source_records_file.id %}" class="btn btn-primary btn-sm">Тестировать</a>
+        <a href="#" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></a>
+    </div>
+    <table class="table">
+        <tr>
+            <th style="width: 200px">Путь к файлу</th>
+            <td>{{ source_records_file.file_uri }}</td>
+        </tr>
+        <tr>
+            <th>Дата модификации</th>
+            <td>{{ source_records_file.get_update_date }}</td>
+        </tr>
+        <tr>
+            <th>Количество записей</th>
+            <td>
+                <button class="btn btn-primary btn-sm" onclick="calculateRecordsCount()">Посчитать</button>
+                <span class="records_count"></span>
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        function calculateRecordsCount() {
+            var $recordsCountResults = $('.records_count');
+            $recordsCountResults.text('ждите...');
+            $.get('{% url 'harvester:calculate_records_count' source.id source_records_file.id %}').then(function (data) {
+                $recordsCountResults.text(data.result);
+            }).catch(function (reason) {
+                $recordsCountResults.text('Ошибка при запросе');
+            });
+        }
+    </script>
+{% endblock %}

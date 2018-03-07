@@ -1,0 +1,26 @@
+{% extends 'harvester/index.html' %}
+{% block breadcrumbs %}
+    {{ block.super }}
+    <li><a href="{% url 'harvester:sources' %}">Источники</a></li>
+    <li><a href="{% url 'harvester:source' source.id %}">{{ source.name }}</a></li>
+    <li>
+        <a href="{% url 'harvester:source_file' source.id source_records_file.id %}">
+            {{ source_records_file.file_uri }}
+        </a>
+    </li>
+    <li class="active">Тестирование</li>
+{% endblock %}
+{% block content %}
+    <div class="well well-sm">
+        <a href="#" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></a>
+        <form method="get">
+            {{ testing_form }}
+            <button type="submit">Показать запись</button>
+        </form>
+    </div>
+    <div class="panel">
+        <div class="panel-body">
+            {{ record_dump|safe }}
+        </div>
+    </div>
+{% endblock %}
