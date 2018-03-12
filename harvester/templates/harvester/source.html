@@ -6,8 +6,12 @@
 {% endblock %}
 {% block content %}
     <div class="well well-sm">
-        <a href="#" class="btn btn-success btn-sm">Добавить файл</a>
-        <a href="#" class="btn btn-default btn-sm">Редактировать</a>
+        <a href="{% url 'harvester:records' source.id %}" class="btn btn-success btn-sm">Записи источника</a>
+        <a href="{% url 'harvester:collect_source' source.id %}" class="btn btn-success btn-sm">Пересобрать</a>
+        <a href="{% url 'harvester:harvesting_status' source.id %}" class="btn btn-success btn-sm">Журнал сбора</a>
+        <a href="{% url 'harvester:add_source_file' source.id %}" class="btn btn-primary btn-sm">Добавить файл</a>
+        <a href="{% url 'harvester:change_source' source.id %}" class="btn btn-default btn-sm">Редактировать</a>
+        <a href="{% url 'harvester:delete_source' source.id %}" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></a>
     </div>
     <h3>Файлы</h3>
     <table class="table">

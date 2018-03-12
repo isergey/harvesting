@@ -3,7 +3,11 @@
 {% block breadcrumbs %}
     <li><a href="{% url 'harvester:index' %}">Харвестер</a></li>
 {% endblock %}
-{#{% block content %}#}
-{#    {% block index_content %}#}
-{#    {% endblock %}#}
-{#{% endblock %}#}
+{% block content %}
+    {% block index_content %}
+        <div class="well well-sm">
+            <a class="btn btn-success btn-sm" href="{% url 'harvester:sources' %}">Источники</a>
+            <a class="btn btn-success btn-sm" href="{% url 'harvester:indexing_rules' %}">Индексирование</a>
+        </div>
+    {% endblock %}
+{% endblock %}

@@ -151,6 +151,15 @@ class Record(models.Model):
     deleted = models.BooleanField(default=False, db_index=True)
 
 
+class IndexingRule(models.Model):
+    name = models.CharField(max_length=128)
+    content = models.TextField(max_length=100 * 1024)
+    params = models.TextField(max_length=10 * 1024, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 class GZipField(models.BinaryField):
 
     def get_db_prep_value(self, value, connection, prepared=False):

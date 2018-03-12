@@ -1,0 +1,24 @@
+{% extends 'harvester/index.html' %}
+{% block breadcrumbs %}
+    {{ block.super }}
+    <li class="active">Правила индексирования</li>
+{% endblock %}
+{% block content %}
+    <div class="well well-sm">
+        <a class="btn btn-success btn-sm" href="{% url 'harvester:add_indexing_rules' %}">+ Добавить правило</a>
+    </div>
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Название</th>
+            <th>Действия</th>
+        </tr>
+        {% for indexing_rule in indexing_rules %}
+            <tr>
+                <td><a href="{% url 'harvester:change_indexing_rules' indexing_rule.id %}">{{ indexing_rule.id }}</a></td>
+                <td>{{ indexing_rule.name }}</td>
+                <td><a href="{% url 'harvester:invoke_indexing_rule' indexing_rule.id %}">{{ indexing_rule.name }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
